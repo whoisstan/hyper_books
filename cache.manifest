@@ -1,0 +1,11 @@
+CACHE MANIFEST 
+# Cache manifest version 02/05/2011 - 12:29AM
+
+index.html
+js/book.js
+js/config.js
+js/jquery.js
+sql/create_book.sql
+style/book.css
+
+

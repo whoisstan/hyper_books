@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <title>Test threads fibonacci</title>
+  <body>
+
+  <div id="result">hello</div>
+
+  <script language="javascript">
+
+	var worker = new Worker('worker.js');
+	var result = document.getElementById('result');
+	
+	worker.addEventListener('message', function(e) {
+	  console.log('Worker said: ', e.data);
+	alert(e.f);
+	}, false);
+
+	worker.postMessage("a"); // Send data to our worker.
+
+
+  </script>
+  </body>
+</html>

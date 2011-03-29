@@ -1,0 +1,43 @@
+
+/*  480x854 Android */
+@media only screen and  (min-device-width: 480px) and (max-device-height: 854px)
+{
+	body {height:520px !important;}
+	#deck > *, .phantom > * {height:500px !important;background:green;}	
+}
+
+/*  320x508 (a version of 480x800) Android */
+@media only screen and  (min-device-width: 320px) and (max-device-height: 508px)
+{
+	body {height:520px !important;}	
+	#deck > *, .phantom > * {height:468px !important;background:blue;}	
+}
+
+/*  480x800 Android */
+@media only screen and  (min-device-width: 320px) and (max-device-height: 800px)
+{
+	body {height:520px !important;}	
+	#deck > *, .phantom > * {height:468px !important;background:red;}		
+}
+
+/*  480x800 Android */
+@media only screen and  (min-device-width: 320px) and (max-device-height: 960px)
+{
+	body {height:520px !important;}	
+	#deck > *, .phantom > * {height:468px !important;background:yellow;}		
+}
+
+/*  Galaxy Tab */
+@media only screen and  (min-device-width: 400px) and (max-device-height: 657px)
+{
+	body,#deck {width:400px !important;height:657px !important;}
+	#line {position:absolute;left:140px;top:10px;width:120px;height:10px;}
+	.width{width:400px !important;}	
+	#deck > *, .phantom > * {height:600px;width:340px; padding:30px 40px 80px 30px;background:orange;}	
+	
+	.menu .menu_panels {width: 400px; height:657px;}	
+	.menu .menu_panel:nth-child(2){left:-400px;}
+	
+	#current_book {font-size:1.8em;padding-top:20px;padding-bottom:20px;}
+	.page {line-height:28px;}
+}
