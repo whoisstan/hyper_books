@@ -75,7 +75,7 @@ var conf={
 					purchase_links:{'amazon':'http://amzn.to/gO52oM'}
 				}
 				,								
-				'gutenberg_2197':{
+				'gutenberg_1297':{
 					authors:['Fyodor Dostoyevsky'],
 					title:'The Gambler',
 					language:'en',

@@ -6,7 +6,7 @@ define('CONSUMER_SECRET', 'hJSNK5u9Uuk2kYnVbahxESsky4a7A3MrUb4EEx514');
 
 
 switch($_SERVER['SERVER_NAME']) {
-	case "localhost":
+	case "192.168.1.100":
 		$dbCredentials = array('host' => 'localhost', 'username' => 'root', 'password' => '', 'db'=> 'hyper_books');
 		define('OAUTH_CALLBACK',"http://localhost/book/php/callback.php");
 		break;

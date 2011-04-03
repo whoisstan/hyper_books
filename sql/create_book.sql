@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS books
 	title TEXT NOT NULL, 
 	authors TEXT NOT NULL, 
 	authors_sort_key TEXT NOT NULL, 		
-	content TEXT DEFAULT "", 	
+	content BLOB DEFAULT "", 	
 	language TEXT NOT NULL, 	
 	chapters TEXT DEFAULT "", 	
 	bookmarks TEXT DEFAULT "",

@@ -23,7 +23,7 @@ var book_storage=function() {
 			db.transaction(
 			    function(transaction){			
 					transaction.executeSql("update books set is_current_book = 0;",[],function(){},function(transaction, error){ errorCallback(error)});
-					transaction.executeSql("update books set content = ?,chapters=?,is_ready=?,is_current_book=1 where id = ?;", [lzw_encode(book.content.join('^&')),JSON.stringify(book.chapters),book.is_ready,book.id],successCallback,function(transaction, error){ errorCallback(error)} );
+					transaction.executeSql("update books set content = ?,chapters=?,is_ready=?,is_current_book=1 where id = ?;", [compress(book.content.join('^&')),JSON.stringify(book.chapters),book.is_ready,book.id],successCallback,function(transaction, error){ errorCallback(error)} );
 				});
 				
 		}
@@ -88,19 +88,21 @@ var book_storage=function() {
 		{
 			function _successCallback(transaction, results)
 			{
-				if(results.rows.length==0)
-				{
-					successCallback(null);	
-				}
-				else
-				{
+
 					book=convert_to_mutable(results.rows.item(0));
 					book.authors=book.authors.split(',');
-					book.content=lzw_decode(book.content).split('^&');
-					book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];
-					book.purchase_links=JSON.parse(book.purchase_links);
+					if(book.content!=null && book.content!="")
+					{
+						book.content=decompress(book.content).split('^&');
+						book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];					
+						book.is_ready=true;						
+					}
+					else
+					{
+						book.is_ready=false;	
+					}
 					successCallback(book);					
-				}
+				
 			}
 			db.transaction(
 			    function (transaction) {
@@ -125,7 +127,7 @@ var book_storage=function() {
 		{
 			function _successCallback(transaction, results)
 			{
-				if(results.rows.length==0)
+				if(results.rows.length==0 || results.rows.item(0).content==null || results.rows.item(0).content=="")
 				{
 					successCallback(null);	
 				}
@@ -133,7 +135,7 @@ var book_storage=function() {
 				{
 					book=convert_to_mutable(results.rows.item(0));
 					book.authors=book.authors.split(',');
-					book.content=lzw_decode(book.content).split('^&');
+					book.content=decompress(book.content).split('^&');
 					book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];
 					successCallback(book);
 				}
@@ -166,35 +168,38 @@ var book_storage=function() {
 }();
 
 
-function lzw_encode(s) {
-      var dict = {};
-      var data = (s + "").split("");
-      var out = [];
-      var currChar;
-      var phrase = data[0];
-      var code = 256;
-      for (var i=1; i<data.length; i++) {
-          currChar=data[i];
-          if (dict[phrase + currChar] != null) {
-              phrase += currChar;
-          }
-          else {
-              out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
-              dict[phrase + currChar] = code;
-              code++;
-              phrase=currChar;
-          }
-      }
-      out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
-      for (var i=0; i<out.length; i++) {
-          out[i] = String.fromCharCode(out[i]);
-      }
-      return out.join("");
-  }
+    
+    
 
-  // Decompress an LZW-encoded string
-  function lzw_decode(s) {
-      var dict = {};
+function compress(s)
+{
+   var dict = {};
+   var data = (s + "").split("");
+   var out = [];
+   var currChar;
+   var phrase = data[0];
+   var code = 256;
+   for (var i=1; i<data.length; i++) {
+       currChar=data[i];
+       if (dict[phrase + currChar] != null) {
+           phrase += currChar;
+       }
+       else {
+           out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+           dict[phrase + currChar] = code;
+           code++;
+           phrase=currChar;
+       }
+   }
+   out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+   for (var i=0; i<out.length; i++) {
+       out[i] = String.fromCharCode(out[i]);
+   }
+   return out.join("");
+}
+
+function decompress(s){
+    var dict = {};
       var data = (s + "").split("");
       var currChar = data[0];
       var oldPhrase = currChar;
@@ -216,7 +221,8 @@ function lzw_encode(s) {
           oldPhrase = phrase;
       }
       return out.join("");
-  }
+}   
+
 
   function convert_to_mutable(book)
   {
