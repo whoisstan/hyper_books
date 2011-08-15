@@ -4,9 +4,9 @@ a {text-decoration:none;}
 li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-padding-start: 0px;}
 
 #deck {display:none; overflow:hidden;width: 320px; position: relative;height:150%;}
-.page {font-family:'Georgia';text-align:justify;background:#fdf1d9;color:#63553C; padding:20px 30px 80px 20px;line-height:26px;font-size:15pt;}
+.page {font-family:'Georgia';text-align:justify;background:#fdf1d9;color:#63553C; padding:20px 30px 30px 20px;line-height:26px;font-size:15pt;}
 .phantom {position:absolute;left:0px;top:0px;opacity:0;z-index:-5;width:320px;min-height:460px;}	
-.width{width:320px !important;}
+.width{width:100% ;}
 #deck > *, .phantom > * {width:280px; height:410px;position:absolute;left:0px;top:0px;}
 
 .cover {text-align:center;}
@@ -17,7 +17,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 
 
 
-.button {float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#989793;}
+.button {float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#333;}
 
 .menu {clear:both; background:#aaa;overflow:hidden;}
 .menu .menu	{clear:both; background:#bbb;}
@@ -37,12 +37,12 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 #line .left {background: #bbb;height:100%;}	
 #line.in_bar {border:1px solid #444;top:14px;}
 #line.in_bar .left {background: #444;}
-
+#bar .menu_button{ background:#656565; font-size:0.8em; }
 #bar {display:none;background:white;width:100%;z-index:5;color:#444;overflow:hidden;position:absolute;left:0px;top:0px;height:100%;}
 #bar .top{background:#aaa;}
-#bar .button { font-size:0.9em; opacity:0.8;-webkit-border-radius:6px; border-radius:6px; }
+#bar .button { font-size:0.9em; opacity:0.8;-webkit-border-radius:6px; border-radius:6px;background:#333;color:ccc; }
 #bar .header { clear:both;font-weight:bold;font-size:0.7em;text-align:center;padding-top:5px;}
-#bar .title { font-size:0.9em; text-align:center; font-weight:bold; margin-top:12px; text-shadow: 0px 1px 1px #666; }
+#bar .title { font-size:0.9em; text-align:center; font-weight:bold; margin-top:12px; text-shadow: 0px 1px 1px #666; padding-left:10px;padding-right:10px;}
 #bar .authors { text-align:center; font-size:0.7em; padding-bottom:12px; }
 #hide_bar {float:right;margin-right:5px;}
 
@@ -50,14 +50,15 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 #locations li{list-style:none;padding-left:10px;padding-top:8px;padding-bottom:8px;border-bottom:1px dotted #aaa;clear:both;color:#333;font-size:0.9em;text-shadow: 0px 1px 1px #aaa;}
 
 
-#rotate {display:none;z-index:30000;position:absolute;left:0px;top:0px;height:300%;width:480px;text-align:center;background:#fdf1d9;}
+#rotate {display:none;z-index:30000;position:absolute;left:0px;top:0px;height:489px;width:480px;text-align:center;background:#fdf1d9;}
 #rotate canvas{padding-top:45px;}
 
 #current_book {position:absolute;left:0px;top:00px;z-index:20000;width:100%;color:#444;line-height:24px;font-size:18pt;min-height:50px;padding-top:10px;padding-bottom:10px;text-align:center;opacity:0.95;background:#aaa;text-shadow: 0px 1px 1px #444; }
 
 #current_book .progress {font-size:0.6em; padding:5px;}
 
-#loading {padding: 15px;font-family:'Georgia';display:none;background:#fdf1d9;height:150%;padding-top:60px;}
+#loading {font-family:'Georgia';display:none;background:#fdf1d9;height:100%;}
+#loading .cover{padding-top:70px;}
 #cover_message {text-align:center;font-style:italic;position:absolute;left:0px;top:0px;color:#e3f0d4;background:#5c5d61;padding-top:4px;padding-bottom:4px;font-family:Helvetica;}
 
 
@@ -77,7 +78,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 #all_books .detail_panel {display:none;clear:both;height:40px;}
 #all_books .detail_panel .button {background:#bbb;color:#666;border:1px solid #333;padding:3px;-webkit-border-radius:3px;border-radius:3px;margin-bottom:4px;border:none;font-size:0.8em;margin-left:0px;margin-right:4px;}
 
-#splash	{background:#5c5d61;color: #fdf1d9; height:100%; width:100%; display:none;}
+#splash	{background:#5c5d61;color: #fdf1d9; height:100%; width:100%; display:block;}
 #splash img {width:100%;}
 
 #logo {float:right;height:38px;width:38px;padding-right:4px;padding-top:4px;}
@@ -90,7 +91,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 
 
 
-
+#help {font-style:italic;font-size:small;text-align:center;padding-top:30px;}
 
 
 
@@ -100,18 +101,19 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 {
 	#deck, body,.phantom {width:768px !important;height:1024px !important;;}
 	.width{width:768px !important;}	
-	#deck > *,.phantom > *  {float:left;width:608px; height:804px;}
-	.page{ 	padding:60px 80px 100px 80px;line-height:48px;font-size:28pt;}
+	#deck > *,.phantom > *  {float:left;width:608px; height:844px;}
+	.page{ 	padding:60px 80px 100px 80px;line-height:48px;font-size:24pt;}
 	#line {position:absolute;left:285px;top:20px;width:200px;height:16px;}
 	
-	#rotate {height:300%;width:1024px !important;padding-top:150px;}
+	#rotate {height:690px !important;width:1024px !important;padding-top:150px;}
 	
 	.intro  { padding:100px; font-size:2em;}
 	h1 {font-size:2.4em !important;padding:4px;text-shadow: 2px 2px 2px #999;}
 	
+	.menu .menu_panel  {min-height:880px !important;}
 	.menu .menu_buttons { font-size:1.6em;margin-right:10px;}
 	.menu .menu .menu_buttons { font-size:1.4em }	
-	.menu .menu_button{  margin:8px;}	
+	.menu .menu_button{  margin:12px 12px 18px 12px;}	
 	.menu .menu_panels {width: 768px; height:700px;}	
 	.menu .menu_panel:nth-child(2){left:-768px;}	
 	
@@ -135,7 +137,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 	.cover .title{font-size:2.4em;line-height:0.9em;}
 	.cover .author{font-size:1.4pt;}		
 	
-	#logo {float:right;height:48px;width:48px;padding-right:4px;padding-top:8px;}	
+	#logo {float:right;height:58px;width:58px;padding-right:4px;padding-top:8px;}	
 	
 	.button {float:left; margin:8px; padding:8px;}	
 	

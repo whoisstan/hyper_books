@@ -85,7 +85,6 @@ $(document).ready(function(){
 			);										
 		},
 		handle_fatal_error);
-		percent_mobile_track('78423005067833937195653852051598771668','home');			
 	});
 	
 	//*****************************************
@@ -578,7 +577,6 @@ $(document).ready(function(){
 				prepare_book(settings);
 		}})});
 	
-		percent_mobile_track('78423005067833937195653852051598771668','load_book');
 	}
 	
 	

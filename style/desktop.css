@@ -1,0 +1,10 @@
+body{background:#fdf1d9;color:#63553C; font-family:Helvetica;font-size:1.0em;color:#333;margin-left:20px;margin-top:00px;}
+.box{width:887px;margin-left:auto;margin-right:auto;}
+.left {width:400px;float:left;height:480px;border-top:1px solid #333;border-bottom:1px solid #333;margin-top:135}
+h1{text-align:center;padding-bottom:1px;}
+p{font-size:1.1em;line-height:1.5em;text-align:justify;}
+.intro{line-height:1.5em;}
+.main{font-weight:bold}
+a{color:#333}
+img.screenshot{float:left;padding-left:40px;padding-top:10px}
+img.qr{padding-left:150px;}

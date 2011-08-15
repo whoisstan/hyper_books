@@ -16,36 +16,20 @@
 	<link rel="apple-touch-icon" href="images/icon.png">
 	<link rel="apple-touch-startup-image" href="images/startup.png">	
 	<link rel="stylesheet" href="style/book.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+	<!-- Hardcoded with for development -->
+	<style>
+		.width{width:320px !important;}
+	</style>	
 		
-	<script>
-		if(window.location.href.indexOf('debug')>-1)
-		{
-			
-			alert('sreen-width/height='+window.innerWidth+"/"+window.innerHeight);	
-			alert('sreen-width/height='+screen.width+"/"+screen.height);	
-			alert('client-width/height='+document.documentElement.clientWidth+"/"+document.documentElement.clientHeight);						
-		}
-
-		if(navigator.userAgent.toLowerCase().indexOf("android")>-1)
-		{
-			//a single css with media queries did not work to sep out iphone / android displays
-			document.write('<link rel="stylesheet" href="style/android.css" type="text/css" media="screen" title="no title" charset="utf-8">');
-		}
-
-		
-	</script>
+	
 	
 	
 	<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/book_storage.js?a" type="text/javascript" charset="utf-8"></script>	
+	<script src="js/book_storage.js" type="text/javascript" charset="utf-8"></script>	
 	<script src="js/book_processing.js" type="text/javascript" charset="utf-8"></script>	
 	<script src="js/book.js" type="text/javascript" charset="utf-8"></script>
-
-	<script src="http://assets.percentmobile.com/percent_mobile_hash.js" type="text/javascript" charset="utf-8"></script>
-	<script>
-		var percent_mobile_track_id='78423005067833937195653852051598771668';
-	</script>
 	
 </head>
 <body class="width">
@@ -83,6 +67,7 @@
 		</div>
 </div>
 			<div id="cover_message" class="width"></div>		
+<div id="help" class="width">Touch to flip through the book. <br/>Touch + Hold for menu.</div>			
 	</div>	
 	
 	<div id='deck' class="panel"></div>		

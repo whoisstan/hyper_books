@@ -27,7 +27,7 @@ unset($_SESSION['oauth_token_secret']);
 
 /* If HTTP response is 200 continue otherwise send to connect page to retry */
 if (200 == $connection->http_code) {	
-    header('Location: ../index.html?twitter_success'); 
+    header('Location: ../mobile.php?twitter_success'); 
 } else {
 
     header('Location: ../index.html?twitter_error' ); 

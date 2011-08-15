@@ -3,37 +3,34 @@
 @media only screen and  (min-device-width: 480px) and (max-device-height: 854px)
 {
 	body {height:520px !important;}
-	#deck > *, .phantom > * {height:500px !important;background:green;}	
+	#deck > *, .phantom > * {height:500px !important;}	
 }
 
 /*  320x508 (a version of 480x800) Android */
 @media only screen and  (min-device-width: 320px) and (max-device-height: 508px)
 {
-	body {height:520px !important;}	
-	#deck > *, .phantom > * {height:468px !important;background:blue;}	
+	body {height:508px !important;}	
+	#deck > *, .phantom > * {height:468px !important;}	
 }
 
-/*  480x800 Android */
-@media only screen and  (min-device-width: 320px) and (max-device-height: 800px)
+/*/*  480x800 Android */
+@media only screen and   (min-device-width: 460px) and  (min-device-height: 700px)  and  (max-device-height: 800px) 
 {
-	body {height:520px !important;}	
-	#deck > *, .phantom > * {height:468px !important;background:red;}		
-}
-
-/*  480x800 Android */
-@media only screen and  (min-device-width: 320px) and (max-device-height: 960px)
-{
-	body {height:520px !important;}	
-	#deck > *, .phantom > * {height:468px !important;background:yellow;}		
+	body,#deck {height:880px !important;width: 480px !important;}	
+	#line {position:absolute;left:180px;top:10px;width:120px;height:10px;}
+	.width{width:480px !important;}
+	.menu .menu_panels {width: 480px; height:800px;}	
+	.menu .menu_panel:nth-child(2){left:-480px;}	
+	#deck > *, .phantom > * {height:660px !important;width: 400px !important;padding:40px 40px 280px 40px;}		
 }
 
 /*  Galaxy Tab */
-@media only screen and  (min-device-width: 400px) and (max-device-height: 657px)
+@media only screen and  (min-device-width: 399px) and (max-device-width: 400px) and (min-device-height: 599px) and (max-device-height: 657px)
 {
-	body,#deck {width:400px !important;height:657px !important;}
+	body,#deck,.phantom {width:400px !important;height:657px !important;}
 	#line {position:absolute;left:140px;top:10px;width:120px;height:10px;}
 	.width{width:400px !important;}	
-	#deck > *, .phantom > * {height:600px;width:340px; padding:30px 40px 80px 30px;background:orange;}	
+	#deck > *, .phantom > * {height:590px !important;width:320px; padding:30px 40px 60px 40px;}	
 	
 	.menu .menu_panels {width: 400px; height:657px;}	
 	.menu .menu_panel:nth-child(2){left:-400px;}

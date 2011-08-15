@@ -19,7 +19,7 @@ else
 	$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
 	$connection->format='xml';
-	$status = $connection->post('statuses/update', array('status' => $_GET['message']));
+	$status = $connection->post('statuses/update', array('status' => str_replace("\\","",$_GET['message'])));
 	
 	
 	/* If last connection failed don't display authorization link. */
@@ -29,9 +29,9 @@ else
 		break;
 	  default:
 		//STAN COMMENT
+		error_log($status);
 		if(isset($status)  )
-		{
-			
+		{			
 			echo error_to_client("error happened while posting an tweet.");			
 		}
 		else

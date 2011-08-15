@@ -1,0 +1,63 @@
+<project name="Build example" default="js" basedir=".">
+    <!-- Setup -->
+	<property name="YUI" value="./lib/yuicompressor-2.4.6.jar" description="YUICompressor" />
+ 
+
+    <target name="all" depends="js.min,css.min">
+	  <tstamp>
+	      <format property="time" pattern="MM/dd/yyyy hh:mm aa"/>
+	  </tstamp>	
+	 	<copy file="cache.manifest" tofile="build.manifest" overwrite="true"/>
+	 	<replace file="build.manifest" token="VERSION" value="${time}"/>
+	
+        <echo message="Build complete." />
+    </target>
+
+    <target name="css.min"  description="Minimize CSS files">
+        <echo message="Building CSS_MIN" />
+        <apply executable="java" parallel="false" verbose="true" dest="style">
+            <fileset dir="style">
+                <include name="book.css" />
+            </fileset>
+            <arg line="-jar" />
+            <arg path="${YUI}" />
+            <arg value="--charset" />
+            <arg value="ANSI" />
+            <arg value="-o" />
+            <targetfile />
+            <mapper type="glob" from="book.css" to="book.build.css" />
+        </apply>
+        <echo message="CSS_MIN built." />
+    </target>
+
+    <target name="js"  description="Concatenate JavaScript source files">
+        <echo message="Building JS" />
+        <concat destfile="js/all.js">
+            <fileset dir="js/"  >
+	            <include name="config.js" />
+                <include name="book.js" />
+                <include name="book_processing.js" />
+                <include name="book_storage.js" />
+            </fileset>
+        </concat>
+        <echo message="JS built." />
+    </target>
+ 
+    <target name="js.min" depends="js" description="Minimize JavaScript files">
+        <echo message="Building JS MIN" />
+        <apply executable="java" parallel="false" verbose="true" dest="js/">
+            <fileset dir="js/">
+                <include name="all.js" />
+            </fileset>
+            <arg line="-jar" />
+            <arg path="${YUI}" />
+            <arg value="--charset" />
+            <arg value="ANSI" />
+            <arg value="-o" />
+            <targetfile />
+            <mapper type="glob" from="all.js" to="all.build.js" />
+        </apply>
+        <echo message="JS MIN built." />
+    </target>
+ 
+</project>

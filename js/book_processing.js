@@ -1,3 +1,35 @@
+function inject_chapters(data)
+{
+	if(data.match(/(^|\n)(APPENDIX\.?|INTRODUCTION\.?|INTRO\.?|PREFACE\.?|THE PREFACE.?|Vorwort\s*|Nachwort\s*)(\n)/ig))
+	{
+		data=data.replace(/(^|\n)(APPENDIX\.?|INTRODUCTION\.?|INTRO\.?|PREFACE\.?)(\n)/ig,"<div class='chapter_title'>$2</div>$3");				
+	}
+	
+	if(data.match(/(^|\n)(PART.+CHAPTER.+|CHAPTER.+)(\n)/ig))
+	{
+		data=data.replace(/(^|\n)(PART.+CHAPTER.+|CHAPTER.+)(\n)/ig,"<div class='chapter_title'>$2</div>$3");				
+	}
+	else if(data.match(/(^|\n\n)(\d+.*)(\n)/ig))
+	{
+		data=data.replace(/(^|\n\n)(\d+.*)(\n)/ig,"<div class='chapter_title'>$2</div>$3");
+	}
+	else if(data.match(/(^|\n\n)([IVX]+\..+)(\n)/mg))
+	{
+		data=data.replace(/(^|\n\n)([IVX]+\..+)(\n)/mg,"<div class='chapter_title'>$2</div>$3");
+	}
+
+	else if(data.match(/(^|\n\n)([IVX]+)(\s*\n)/mg))
+	{
+		data=data.replace(/(^|\n\n)([IVX]+)(\s*\n)/mg,"<div class='chapter_title'>$2</div>$3");
+	}
+	else
+	{
+		data=data.replace(/(^|\n)([A-Z][A-Z 0-9\.\?\!\'\"\:\-]+)(\n)/g,"<div class='chapter_title'>$2</div>$3");
+	}
+	
+	return data;
+}
+
 function prepare_book(settings)
 {		
 
@@ -58,7 +90,7 @@ function prepare_book(settings)
 				if(chapter_sep!=null && chapter_sep.index<space_sep.index)
 				{
 					sep=chapter_sep;
-					book.chapters[book.chapters.length]=[book.content.length,sep[1]]
+					book.chapters[book.chapters.length]=[book.content.length,sep[1].replace(/\"/g,"&quot;")]
 				}
 
 				last_content=_content;
@@ -109,8 +141,11 @@ function prepare_book(settings)
 			}
 			else if(_next=="")			
 			{
-					phantom_page.innerHTML+=_content;
-					book.content[book.content.length]=phantom_page.innerHTML;
+					if(!_content.match(/^\s+$/))
+					{
+						phantom_page.innerHTML+=_content;
+						book.content[book.content.length]=phantom_page.innerHTML;
+					}
 					content="";	
 					content_length=0;	
 					success_callback(book);

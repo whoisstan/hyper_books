@@ -1,21 +1,12 @@
 <?php
 session_start();
 
-define('CONSUMER_KEY', '8NhEimsFkJQRpDNgXHw');
-define('CONSUMER_SECRET', 'hJSNK5u9Uuk2kYnVbahxESsky4a7A3MrUb4EEx514');
+define('CONSUMER_KEY', '');
+define('CONSUMER_SECRET', '');
+define('OAUTH_CALLBACK',"http://localhost/hyper_books/php/callback.php");
 
-
-switch($_SERVER['SERVER_NAME']) {
-	case "192.168.1.100":
-		$dbCredentials = array('host' => 'localhost', 'username' => 'root', 'password' => '', 'db'=> 'hyper_books');
-		define('OAUTH_CALLBACK',"http://localhost/book/php/callback.php");
-		break;
-	default:
-		$dbCredentials = array('host' => $_ENV{'DATABASE_SERVER'}, 'username' => 'db121990', 'password' => 'db_n3wl1f3', 'db'=> 'db121990_hyper_books');	
-		define('OAUTH_CALLBACK',"http://hyper-books.com/php/callback.php");			
-		break;
-}
-
+$dbCredentials = array('host' => 'localhost', 'username' => 'root', 'password' => '', 'db'=> 'hyper_books');
+define('OAUTH_CALLBACK',"http://localhost/hyper_books/php/callback.php");
 
 
 $link = mysql_connect($dbCredentials['host'],$dbCredentials['username'],$dbCredentials['password']);
