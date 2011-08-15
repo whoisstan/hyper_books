@@ -6,6 +6,13 @@ var conf={
 				display_name : 'books' ,
 				max_size : 5*1024*1024
 			},
+			test_db:{
+				short_name:'_test_library_' ,
+				version : '1.0' ,
+				display_name : 'books' ,
+				max_size : 5*1024*1024
+			}			
+			,
 			book_list:{
 			
 				'gutenberg_11':{
@@ -177,10 +184,38 @@ var conf={
 					title:'Dreams',
 					language:'en',
 					purchase_links:{'amazon':'http://amzn.to/hxG3gB'}
-				}													
-				
-																														
-				
+				},
+				'pdf_benjamin_kunstwerk':{
+					authors:['Walter Benjamin'],
+					title:'Das Kunstwerk im Zeitalter seiner technischen Reproduzierbarkeit',
+					language:'de',
+					purchase_links:{'amazon':'http://amzn.to/j8LNeO'}
+				},
+				'gutenberg_au_0600031':{
+					authors:['H. P. Lovecraft'],
+					title:'The Call of Cthulhu',
+					language:'en',
+					purchase_links:{'amazon':'http://amzn.to/jsTbbO'}
+				},
+				'gutenberg_de_5358':{
+					authors:['Arthur Schnitzler'],
+					title:'Die Traumnovelle',
+					language:'de',
+					purchase_links:{'amazon':'http://amzn.to/kUMdWH'}
+				},	
+				'gutenberg_de_326':{
+					authors:['Lew Tolstoi'],
+					title:'Die Kreutzersonate',
+					language:'de',
+					purchase_links:{'amazon':'http://amzn.to/jV5qpq'}
+				},
+					
+				'gutenberg_en_28215':{
+					authors:['Clifford Donald Simak'],
+					title:'Empire',
+					language:'en',
+					purchase_links:{'amazon':'http://amzn.to/jshApR'}																																					
+				}
 																																		
 													
 			}
