@@ -12,6 +12,8 @@ The project has an HTML5 based front-end. Its using a HTML5 database to store do
 
 The server provides a list of available books. Since parsing of books on the client side can consume a lot of time the backend is also providing a service to deliver a pre-parsed book formatted for the readers device. 
 
+The format of the books are simple text files as found on Project Gutenberg.
+
 
 # Book Storage Process
 
@@ -23,5 +25,16 @@ A device is not identified by its user agent but by the css definition of a page
 
 # Formatting
 
-The client side is formatting books by filling a not visible panel word by word from the document containing the book until the page is full and continues on to next page until all book content is formatted. The formatting is also using regular expressions to detect chapters in books and their respective location in the book.
+The client side is formatting books by filling a not visible panel word by word from the document containing the book until the page is full and continues on to next page until all book content is formatted. The formatting is also using regular expressions to detect chapters in books and their respective location in the book. Since this can be time intensive for larger documents the page marks of a book are stored on the server once they have been created the first time for a certain device spec.
+
+# Building for deployment
+
+The provided ant build file is minimizing the javascript and css files as well us creating a new version of the build.manifest files needed for offline apps.
+
+# Wishlist
+
+* ePub ebook format support
+* better detection of android screen dimensions
+* highlighting of words
+* a process to allow users to add their own books
 

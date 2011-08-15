@@ -2,6 +2,13 @@
     <!-- Setup -->
 	<property name="YUI" value="./lib/yuicompressor-2.4.6.jar" description="YUICompressor" />
  
+    <target name="clean">
+		<delete file="style/book.build.css"/>
+		<delete file="js/all.js"/>
+		<delete file="js/all.build.js"/>
+		<delete file="build.manifest"/>
+		
+	</target>
 
     <target name="all" depends="js.min,css.min">
 	  <tstamp>
