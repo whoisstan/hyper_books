@@ -1,0 +1,16 @@
+CACHE MANIFEST 
+
+# VERSION
+   
+dist/js/all.build.js
+dist/js/jquery.js
+dist/style/all.css
+images/icon.png
+images/startup.png
+images/rotate.png
+
+
+NETWORK: 
+data/
+php/
+

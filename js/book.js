@@ -3,9 +3,7 @@ var current_page,next_page,previous_page;
 var page_width=0;
 var new_page=0;
 
-
 $(document).ready(function(){
-
 	
 	page_width=$('body').width();
 
@@ -262,8 +260,7 @@ $(document).ready(function(){
 	//*****************************************	
 	function show_library()
 	{		
-		var list_amount=0;
-		function interface()
+		function create_interface()
 		{
 			if(list_amount==3)
 			{
@@ -348,27 +345,29 @@ $(document).ready(function(){
 			return all;		
 		}
 			
+		var list_amount=0;
+			
 		book_storage.get_all_books(1,'',
 			function(list)
 			{				
 				$('#my_books').html(render_list(list,"<div class='intro'><p><b>Hyper Books</b> is a mobile browser based e-book reader. The featured books are copyright free classics from digital libraries such as Project Gutenberg in Australia, Germany and the United States.</p><p>All downloaded books are stored on your phone and available offline. Please bookmark this site so you can enjoy your books when you are off the grid. </p></div>"));
 						
-				interface();
+				create_interface();
 			});
 
 		book_storage.get_all_books(0,'de',
 			function(list)
 			{
 				$('#available_for_download_de').html(render_list(list),"<li><blockquote><i>All verfuegbaren buecher sind bereits runtergeladen.</i></blockquote></li>");												
-				interface();
+				create_interface();
 			});
 		book_storage.get_all_books(0,'en',
 			function(list)
 			{
 				$('#available_for_download_en').html(render_list(list),"<li><blockquote><i>All books are already downloaded.</i></blockquote></li>");												
-				interface();
+				create_interface();
 			});									
-	}
+    }
 	
 	//*****************************************
 	//Get the book with the given ID, if the 
