@@ -1,89 +1,86 @@
-var current_book=0;
-var current_page,next_page,previous_page;
-var page_width=0;
-var new_page=0;
+(function()	
+{
 
-$(document).ready(function(){
+	var pub = {};
+	var current_book=0;
+	var current_page,next_page,previous_page;
+	var page_width=0;
+	var new_page=0;
+		
+	init=function()
+	{	
+				
+		page_width=$('body').width();
+		page_height=document.body.clientHeight;	
 	
-	page_width=$('body').width();
-
-	page_height=document.body.clientHeight;
-	
-	
-	if(navigator.userAgent.match(/iPhone/i))
-	{
-		if(window.navigator.standalone==true)
+		if(navigator.userAgent.match(/iPhone/i))
 		{
-			page_height=460
+			if(window.navigator.standalone==true)
+			{
+				page_height=460
+			}
+			else
+			{
+				page_height=416;			
+			}
+			$('body').css('min-height',page_height+"px");
 		}
-		else
-		{
-			page_height=416;			
-		}
-		$('body').css('min-height',page_height+"px");
-	}
-	$('#bar').css('min-height',page_height+"px");
+		$('#bar').css('min-height',page_height+"px");
 
-
-	//media queries don't work everyhwhere to detect orientation
-	var old_orientation=-1;
-	setInterval(function (){
-		if(old_orientation!=window.orientation)
-		{old_orientation=window.orientation;
+		//media queries don't work everyhwhere to detect orientation
+		var old_orientation=-1;
+		setInterval(function (){
+			if(old_orientation!=window.orientation)
+			{old_orientation=window.orientation;
 			if(window.orientation==90 || window.orientation==-90){window.scrollTo(0, 1);$('#rotate').show();}
 			else{$('#rotate').hide();window.scrollTo(0,1);}}
 			},300);
 	
-	var next_panel_delay=0;
-	if(typeof(window.navigator.standalone)!='undefined' && window.navigator.standalone==false && localStorage.getItem("splash")==null)
-	{
-		localStorage.setItem("splash",true);
-		show_panel('#splash');
-		next_panel_delay=1000;			
-	}
-	else
-	{
-		show_panel('#splash');
-		next_panel_delay=500;
-	}	
-		
+		var next_panel_delay=0;
+		if(typeof(window.navigator.standalone)!='undefined' && window.navigator.standalone==false && localStorage.getItem("splash")==null)
+		{
+			localStorage.setItem("splash",true);
+			show_panel('#splash');
+			next_panel_delay=1000;			
+		}
+			else
+			{
+			show_panel('#splash');
+			next_panel_delay=500;
+		}			
 	
-	$('#loading').bind('touchstart click',function(e){e.preventDefault();})
-	$('#deck').bind('click',click).bind('touchstart',touchstart).bind('touchmove',touchmove).bind('touchend',touchend);		
-	$('#home').bind('touchstart click',function(e){show_library();e.preventDefault();});
-	$('#hide_bar').bind('touchstart click',function(e){show_book_navigation_bar(false);e.preventDefault();})
-	$('#line').bind('touchstart click',function(e){show_book_navigation_bar(true);e.preventDefault();});
-	$('.menu_button').bind("click  touchstart",function(e){select_menu_item($(this).parent().parent(),$(this))});
+		$('#loading').bind('touchstart click',function(e){e.preventDefault();})
+		$('#deck').bind('click',click).bind('touchstart',touchstart).bind('touchmove',touchmove).bind('touchend',touchend);		
+		$('#home').bind('touchstart click',function(e){show_library();e.preventDefault();});
+		$('#hide_bar').bind('touchstart click',function(e){show_book_navigation_bar(false);e.preventDefault();})
+		$('#line').bind('touchstart click',function(e){show_book_navigation_bar(true);e.preventDefault();});
+		$('.menu_button').bind("click  touchstart",function(e){select_menu_item($(this).parent().parent(),$(this))});
 	
-    draw_logo($('#logo')[0].getContext("2d"));
-    draw_rotate($('#rotate canvas')[0].getContext("2d"));	
+	    draw_logo($('#logo')[0].getContext("2d"));
+	    draw_rotate($('#rotate canvas')[0].getContext("2d"));	
 
-	book_storage.init_storage(
-		function() {
-			
-			
-			//init storage with list of books
-			for (var id in conf.book_list) { book_storage.add_book(id,conf.book_list[id],function(){console.log('book added')},handle_fatal_error); }
-			//has the user already started a book
-			book_storage.get_current_book(
-				function(book){
-					if(book!=null)
-					{		
-						//setTimeout(show_library,next_panel_delay);
-						
-						//setTimeout(show_library,next_panel_delay);	
-						setTimeout(function(){display_book(book);},next_panel_delay);
-					}
-					else
-					{
-						setTimeout(show_library,next_panel_delay);								
-					}
-				},
-			handle_fatal_error
-			);										
-		},
+		book_storage.init_storage(
+			function() {
+				//init storage with list of books
+				for (var id in conf.book_list) { book_storage.add_book(id,conf.book_list[id],function(){console.log('book added')},handle_fatal_error); }
+				//has the user already started a book
+				book_storage.get_current_book(
+					function(book){
+						if(book!=null)
+						{		
+							setTimeout(function(){display_book(book);},next_panel_delay);
+						}
+						else
+						{
+							setTimeout(show_library,next_panel_delay);								
+						}
+					},
+				handle_fatal_error
+				);										
+			},
 		handle_fatal_error);
-	});
+	}
+
 	
 	//*****************************************
 	//Iniate system to display the given book
@@ -97,7 +94,8 @@ $(document).ready(function(){
 		next_page=document.getElementById('next');
 		previous_page=document.getElementById('prev');
 
-		current_page.addEventListener( 'webkitTransitionEnd', function(){set_content(new_page);}, false );
+		var self=this;
+		current_page.addEventListener( 'webkitTransitionEnd', function(){set_content(self.new_page);}, false );
 		
 		current_book=book;		
 		current_book.pages_length=current_book.content.length;		
@@ -601,37 +599,37 @@ $(document).ready(function(){
 		}	
 
 	}
-	function goto_page(new_page,direct,time)
+	function goto_page(_new_page,direct,time)
 	{
-		
+
 		show_book_navigation_bar(false);
 
 		if(time==null)
 		{
 			time='0.5s';
 		}
-		if(new_page>=0 && new_page<=current_book.pages_length)
+		if(_new_page>=0 && _new_page<=current_book.pages_length)
 		{
 			if( direct )
 			{	
-				set_content(new_page);		
-				if(new_page>0)
+				set_content(_new_page);		
+				if(_new_page>0)
 				{
-					$('body').append("<div id='current_book' class='width' style='display:block'>"+current_book.title+"<div class='progress'>"+Math.ceil(new_page*100/current_book.pages_length)+"% into the Book</div></div>");
+					$('body').append("<div id='current_book' class='width' style='display:block'>"+current_book.title+"<div class='progress'>"+Math.ceil(_new_page*100/current_book.pages_length)+"% into the Book</div></div>");
 					$('#current_book').delay(1500).animate({'opacity':0},500,function(){$('#current_book').remove()});
 				}
 			}
 			else
 			{
-				window.new_page=new_page;
-				if(current_book.current_page<current_book.pages_length && new_page>current_book.current_page)
+				this.new_page=_new_page;
+				if(current_book.current_page<current_book.pages_length && _new_page>current_book.current_page)
 				{
 					current_page.style['-webkit-transition-duration']=time;
 					next_page.style['-webkit-transition-duration']=time;					
 					current_page.style.webkitTransform='translate(-'+page_width+'px,0px)';
 					next_page.style.webkitTransform='translate(0px,0px)';										
 				}
-				if(current_book.current_page!=0 && new_page<current_book.current_page)
+				if(current_book.current_page!=0 && _new_page<current_book.current_page)
 				{
 					current_page.style['-webkit-transition-duration']=time;
 					previous_page.style['-webkit-transition-duration']=time;					
@@ -639,8 +637,8 @@ $(document).ready(function(){
 					previous_page.style.webkitTransform='translate(0px,0px)';
 				}					
 			}	
-			current_book.current_page=new_page;			
-			book_storage.update_current_page(current_book.id,new_page);
+			current_book.current_page=_new_page;			
+			book_storage.update_current_page(current_book.id,_new_page);
 		}
 
 	}		
@@ -792,85 +790,79 @@ $(document).ready(function(){
 
 		}
 
-		
 	}				
 
 
 
 
 
-function handle_fatal_error(error)
-{
-	console.log(error);
-	alert(error);
-}
+	function handle_fatal_error(error)
+	{
+		console.log(error);
+		alert(error);
+	}
 
-function draw_logo(ctx) {
+	function draw_logo(ctx) {
 
-  // layer1/Path
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(46.8, 29.3);
-  ctx.bezierCurveTo(54.8, 29.3, 61.3, 22.7, 61.3, 14.6);
-  ctx.bezierCurveTo(61.3, 6.5, 54.8, 0.0, 46.8, 0.0);
-  ctx.bezierCurveTo(38.8, 0.0, 32.4, 6.5, 32.4, 14.6);
-  ctx.bezierCurveTo(32.4, 22.7, 38.8, 29.3, 46.8, 29.3);
-  ctx.closePath();
-  ctx.fillStyle = "#cdcdcd";
-  ctx.fill();
+	  // layer1/Path
+	  ctx.save();
+	  ctx.beginPath();
+	  ctx.moveTo(46.8, 29.3);
+	  ctx.bezierCurveTo(54.8, 29.3, 61.3, 22.7, 61.3, 14.6);
+	  ctx.bezierCurveTo(61.3, 6.5, 54.8, 0.0, 46.8, 0.0);
+	  ctx.bezierCurveTo(38.8, 0.0, 32.4, 6.5, 32.4, 14.6);
+	  ctx.bezierCurveTo(32.4, 22.7, 38.8, 29.3, 46.8, 29.3);
+	  ctx.closePath();
+	  ctx.fillStyle = "#cdcdcd";
+	  ctx.fill();
 
-  // layer1/Compound Path
-  ctx.beginPath();
+	  // layer1/Compound Path
+	  ctx.beginPath();
 
-  // layer1/Compound Path/Path
-  ctx.moveTo(60.9, 30.8);
-  ctx.bezierCurveTo(67.5, 31.0, 70.3, 36.4, 70.3, 36.4);
-  ctx.lineTo(91.6, 66.0);
-  ctx.bezierCurveTo(92.5, 67.3, 93.0, 68.9, 93.0, 70.7);
-  ctx.bezierCurveTo(93.0, 75.3, 89.3, 79.0, 84.8, 79.0);
-  ctx.bezierCurveTo(83.7, 79.0, 82.7, 78.8, 81.8, 78.4);
-  ctx.lineTo(68.9, 74.8);
-  ctx.lineTo(68.9, 87.8);
-  ctx.lineTo(24.2, 87.8);
-  ctx.lineTo(24.2, 74.8);
-  ctx.lineTo(11.3, 78.4);
-  ctx.bezierCurveTo(10.4, 78.8, 9.3, 79.0, 8.2, 79.0);
-  ctx.bezierCurveTo(3.7, 79.0, 0.0, 75.3, 0.0, 70.7);
-  ctx.bezierCurveTo(0.0, 68.9, 0.5, 67.3, 1.4, 66.0);
-  ctx.lineTo(22.8, 36.4);
-  ctx.bezierCurveTo(22.8, 36.4, 25.6, 31.0, 32.1, 30.8);
-  ctx.lineTo(60.9, 30.8);
-  ctx.lineTo(60.9, 30.8);
-  ctx.closePath();
+	  // layer1/Compound Path/Path
+	  ctx.moveTo(60.9, 30.8);
+	  ctx.bezierCurveTo(67.5, 31.0, 70.3, 36.4, 70.3, 36.4);
+	  ctx.lineTo(91.6, 66.0);
+	  ctx.bezierCurveTo(92.5, 67.3, 93.0, 68.9, 93.0, 70.7);
+	  ctx.bezierCurveTo(93.0, 75.3, 89.3, 79.0, 84.8, 79.0);
+	  ctx.bezierCurveTo(83.7, 79.0, 82.7, 78.8, 81.8, 78.4);
+	  ctx.lineTo(68.9, 74.8);
+	  ctx.lineTo(68.9, 87.8);
+	  ctx.lineTo(24.2, 87.8);
+	  ctx.lineTo(24.2, 74.8);
+	  ctx.lineTo(11.3, 78.4);
+	  ctx.bezierCurveTo(10.4, 78.8, 9.3, 79.0, 8.2, 79.0);
+	  ctx.bezierCurveTo(3.7, 79.0, 0.0, 75.3, 0.0, 70.7);
+	  ctx.bezierCurveTo(0.0, 68.9, 0.5, 67.3, 1.4, 66.0);
+	  ctx.lineTo(22.8, 36.4);
+	  ctx.bezierCurveTo(22.8, 36.4, 25.6, 31.0, 32.1, 30.8);
+	  ctx.lineTo(60.9, 30.8);
+	  ctx.lineTo(60.9, 30.8);
+	  ctx.closePath();
 
-  // layer1/Compound Path/Path
-  ctx.moveTo(46.5, 78.7);
-  ctx.lineTo(46.5, 78.7);
-  ctx.lineTo(63.2, 73.1);
-  ctx.lineTo(62.8, 73.0);
-  ctx.bezierCurveTo(51.3, 69.6, 55.8, 54.2, 67.3, 57.6);
-  ctx.lineTo(68.9, 58.2);
-  ctx.lineTo(68.9, 40.8);
-  ctx.lineTo(46.5, 48.2);
-  ctx.lineTo(24.2, 40.8);
-  ctx.lineTo(24.2, 58.2);
-  ctx.lineTo(25.7, 57.6);
-  ctx.bezierCurveTo(37.2, 54.2, 41.7, 69.6, 30.2, 73.0);
-  ctx.lineTo(29.8, 73.1);
-  ctx.lineTo(46.5, 78.7);
-  ctx.lineTo(46.5, 78.7);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-}
+	  // layer1/Compound Path/Path
+	  ctx.moveTo(46.5, 78.7);
+	  ctx.lineTo(46.5, 78.7);
+	  ctx.lineTo(63.2, 73.1);
+	  ctx.lineTo(62.8, 73.0);
+	  ctx.bezierCurveTo(51.3, 69.6, 55.8, 54.2, 67.3, 57.6);
+	  ctx.lineTo(68.9, 58.2);
+	  ctx.lineTo(68.9, 40.8);
+	  ctx.lineTo(46.5, 48.2);
+	  ctx.lineTo(24.2, 40.8);
+	  ctx.lineTo(24.2, 58.2);
+	  ctx.lineTo(25.7, 57.6);
+	  ctx.bezierCurveTo(37.2, 54.2, 41.7, 69.6, 30.2, 73.0);
+	  ctx.lineTo(29.8, 73.1);
+	  ctx.lineTo(46.5, 78.7);
+	  ctx.lineTo(46.5, 78.7);
+	  ctx.closePath();
+	  ctx.fill();
+	  ctx.restore();
+	}
 
-function draw_rotate(ctx)
-{
-
-      // layer1/Group
-      ctx.save();
-
-      // layer1/Group/Compound Path
+	function draw_rotate(ctx)
+	{
       ctx.save();
       ctx.beginPath();
 
@@ -944,4 +936,8 @@ function draw_rotate(ctx)
       ctx.fill();
       ctx.restore();
       ctx.restore();
-}
+	}
+
+	init();
+})();
+

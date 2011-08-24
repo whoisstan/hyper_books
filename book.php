@@ -27,7 +27,9 @@
 				var newScript = document.createElement('script');
 				newScript.type = 'text/javascript';
 				newScript.src = 'dist/js/all.build.js';
-				head.appendChild(newScript);			
+				head.appendChild(newScript);		
+				
+
 			}
 			window.onload=function()
 			{

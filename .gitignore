@@ -1,5 +1,5 @@
 dist/
 .idea/
 *~
-./build.manifest
+build.manifest
 ./cache.manifest
