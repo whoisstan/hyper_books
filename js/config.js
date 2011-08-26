@@ -1,18 +1,20 @@
 
 var conf={
-			db:{
-				short_name:'_library_' ,
-				version : '1.0' ,
-				display_name : 'books' ,
-				max_size : 5*1024*1024
+			_log:function(){console.log.apply(console, arguments)},	
+			
+			processors:{
+				txt:  txt_processor()
 			},
-			test_db:{
-				short_name:'_test_library_' ,
-				version : '1.0' ,
-				display_name : 'books' ,
-				max_size : 5*1024*1024
-			}			
-			,
+			
+			storage:{
+				sqlite: sqlite_storage({
+							short_name:'_library_' ,
+							display_name : 'books' ,
+							version : '1.0' ,					
+							max_size : 5*1024*1024
+				})
+			}, 	
+					
 			book_list:{
 			
 				'gutenberg_11':{

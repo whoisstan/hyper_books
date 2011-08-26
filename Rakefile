@@ -42,7 +42,7 @@ desc "Combine and compress js files into one"
 task :combine_css => :prepare do
   FileUtils.mkdir_p DEPLOY+'style'
   File.open(DEPLOY+'style/all.css','w') do |out|
-    ["style/book.css","style/android.css"].each do |file| 
+    ["style/book.css"].each do |file| 
       out << File.readlines(file).join.gsub(/\s+/, " ") .gsub(/\} /, "}\n").gsub(/\n$/, "").gsub(/ \{ /, " {").gsub(/; \}/, "}").gsub(/\n/, "")
     end
   end

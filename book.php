@@ -11,7 +11,10 @@
 		<link rel="apple-touch-icon-precomposed" href="images/icon.png">
 		<link rel="apple-touch-icon" href="images/icon.png">
 		<link rel="apple-touch-startup-image" href="images/startup.png">
-		<script type="text/javascript" src="dist/js/jquery.js"></script>	
+        <link rel="stylesheet" href="dist/style/all.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<script type="text/javascript" src="dist/js/jquery.js"></script>
+
+			
 			
 		<script>
 			function addResourceElements(cached)
@@ -38,6 +41,7 @@
 					window.applicationCache.update();
 					window.applicationCache.swapCache();
 					addResourceElements();
+					window.location.reload();
 				}
 				else
 				{
