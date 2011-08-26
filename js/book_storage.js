@@ -7,18 +7,21 @@ var sqlite_storage=function(settings) {
 		var drop_sql="drop table if exists books;";
 		var create_sql='CREATE TABLE IF NOT EXISTS books (id TEXT NOT NULL PRIMARY KEY, title TEXT NOT NULL, authors TEXT NOT NULL, authors_sort_key TEXT NOT NULL, content BLOB DEFAULT "", language TEXT NOT NULL, chapters TEXT DEFAULT "", bookmarks TEXT DEFAULT "", purchase_links TEXT DEFAULT "", page_background TEXT DEFAULT "", cover_markup TEXT DEFAULT "", cover_css TEXT DEFAULT "", page_css TEXT DEFAULT "", version TEXT DEFAULT "", is_ready INTEGER DEFAULT 0, current_page INTEGER DEFAULT 0, is_current_book INTEGER DEFAULT 0);';
 
+		var content_seperator='^&';
+
 		pub.content_array_to_string=function(array)
 		{
-			return array.join('^&');
+			return array.join(content_seperator);
 		};
 
 		pub.content_string_to_array=function(string)
 		{
-			return string.split('^&');
+			return string.split(content_seperator);
 		};
 
 		pub.init=function(success,errorCallback)
 		{
+		
 			db=openDatabase(settings.short_name, settings.version, settings.display_name, settings.max_size);
 			db.transaction(function(transaction){transaction.executeSql(create_sql,[],success,function(transaction, error){ errorCallback('init',error)})});
 		};
@@ -46,7 +49,7 @@ var sqlite_storage=function(settings) {
 					if(results.rows.length==0)
 					{
 						transaction.executeSql('insert into books (id, title, authors,authors_sort_key, language, cover_markup, cover_css, page_css, purchase_links, is_ready) VALUES (?,?,?,?,?,?,?,?,?,?);', 
-							[id, book.title, book.authors.join(','),book.authors[0].split(' ').pop(), book.language, book.cover_markup!=null?book.cover_markup:"", book.cover_css!=null?book.cover_css:"", book.page_css!=null?book.page_css:"", JSON.stringify(book.purchase_links!=null?book.purchase_links:{}), 0 ], successCallback,function(transaction, error){ errorCallback('add_book_inner',error)} );						
+							[id, book.title, book.authors.join(','),book.authors[0].split(' ').pop(), book.language, book.cover_markup!=null?book.cover_markup:"", book.cover_css!=null?book.cover_css:"", book.page_css!=null?book.page_css:"", JSON.stringify(book.purchase_links!=null?book.purchase_links:{}), 0 ], successCallback,function(transaction, error){ console.log(error); errorCallback('add_book_inner',error)} );						
 											
 					}
 					else
@@ -111,7 +114,8 @@ var sqlite_storage=function(settings) {
 					if(book.content!=null && book.content!="")
 					{
 						book.content=pub.content_string_to_array(decompress(book.content));
-						book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];					
+						book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];		
+						book.purchase_links=JSON.parse(book.purchase_links);			
 						book.is_ready=true;						
 					}
 					else
@@ -154,6 +158,7 @@ var sqlite_storage=function(settings) {
 					book.authors=book.authors.split(',');
 					book.content=pub.content_string_to_array(decompress(book.content));
 					book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];
+					book.purchase_links=JSON.parse(book.purchase_links);
 					successCallback(book);
 				}
 			}

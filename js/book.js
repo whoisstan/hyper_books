@@ -66,7 +66,8 @@
 						{
 							setTimeout(show_library,next_panel_delay);								
 						}
-						for (var id in conf.book_list) { storage.add_book(id,conf.book_list[id],function(){console.log('book added')},handle_fatal_error); }
+						get_book_list();
+						
 					},
 				handle_fatal_error
 				);										
@@ -74,7 +75,17 @@
 		handle_fatal_error);
 	}
 
-	
+	function get_book_list()
+	{
+		if(navigator.onLine)
+		{
+			$.get("php/get_all_books.php", {}, function(book_data) {
+				var book_list=jQuery.parseJSON(book_data);
+				for (var id in book_list) { storage.add_book(id,book_list[id],function(){console.log('book added')},handle_fatal_error); }			
+			});			
+		}
+		
+	}
 	//*****************************************
 	//Initiate system to display the given book
 	//*****************************************	
@@ -137,9 +148,10 @@
 			$('#more_options').attr('book_id',current_book.id);
 			$('#more_options').append("<li><div class='button remove' style='margin-right:5px;'>Remove Book</div></li>");
 			
-			if(conf.book_list[current_book.id].purchase_links && conf.book_list[current_book.id].purchase_links.amazon)
+			if(book.purchase_links && book.purchase_links.amazon)
 			{
-				$('#more_options').append("<li ><div class='button amazon' url='"+conf.book_list[current_book.id].purchase_links.amazon+"' style='margin-right:5px;'>Buy on Amazon</div></li>");
+				console.log(book);
+			 	$('#more_options').append("<li ><div class='button amazon' url='"+book.purchase_links.amazon+"' style='margin-right:5px;'>Buy on Amazon</div></li>");
 			}
 			
 			$('#more_options').append("<li ><div class='button tweet' style='margin-right:5px;'>Tweet Book</div></li>");
@@ -214,6 +226,12 @@
 	}
 	function tweet_book_check(id)
 	{
+		if(!navigator.online)
+		{
+			alert("You appear to be offline. You need to be online to tweet.");
+			return;
+		}
+		
 		$.getJSON('php/check.php', function(data) {
 		if(data.status=='success')
 		{
@@ -231,6 +249,12 @@
 	}
 	function tweet_book(id)
 	{	
+		if(!navigator.online)
+		{
+			alert("You appear to be offline. You need to be online to tweet.");
+			return;
+		}
+		
 		storage.get_book(id,function(book){		
 			if(confirm("Tell your followers that you read "+book.title+"?"))
 			{		
@@ -386,6 +410,11 @@
 	//*****************************************
 	function load_book(book)
 	{
+		if(!navigator.onLine)
+		{
+			alert("You appear to be offline. You need to be online to load a new book from our server.");
+			return;
+		}
 		document.getElementById('deck').innerHTML="<div id='prev' class='page'></div><div id='current' class='page'><div class='chapter_title' id='chapter_title_test'>test</div></div><div id='next' class='page'></div>";		
 		$('.phantom').remove();  
 		$('body').append("<div class='phantom' id='phantom_"+book.id+"' ><div class='page '><div></div></div></div>");
