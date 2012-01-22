@@ -226,7 +226,7 @@
 	}
 	function tweet_book_check(id)
 	{
-		if(!navigator.online)
+		if(!navigator.onLine)
 		{
 			alert("You appear to be offline. You need to be online to tweet.");
 			return;
@@ -249,17 +249,17 @@
 	}
 	function tweet_book(id)
 	{	
-		if(!navigator.online)
+		if(!navigator.onLine)
 		{
 			alert("You appear to be offline. You need to be online to tweet.");
 			return;
 		}
 		
 		storage.get_book(id,function(book){		
-			if(confirm("Tell your followers that you read "+book.title+"?"))
+			if(confirm("Tweet your followers that you read "+book.title+"?"))
 			{		
-				var message=escape("I am reading '"+book.title+"' on http://hyper-books.com");
-				$.getJSON('php/post.php', function(data) {
+				var _message="I am reading '"+book.title+"' on http://hyper-books.com";
+				$.getJSON('php/post.php', {message:_message}, function(data) {
 
 					if(data.status=='success')
 					{
