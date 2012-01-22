@@ -19,7 +19,7 @@ else
 	$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
 	$connection->format='xml';
-	$status = $connection->post('statuses/update', array('status' => str_replace("\\","",$_GET['message'])));
+	$status = $connection->post('statuses/update', array('status' => str_replace("\\","",$_POST['message'])));
 	
 	
 	/* If last connection failed don't display authorization link. */

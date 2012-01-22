@@ -1,6 +1,3 @@
-<?php 
-//include_once 'php/detect.php';
-?>
 <html manifest='build.manifest'>
 	<head>
 		<title>Hyper Books</title>
