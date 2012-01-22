@@ -49,7 +49,7 @@
 		$('#home').bind(touch_click,function(e){show_library();e.preventDefault();});
 		$('#hide_bar').bind(touch_click,function(e){show_book_options(false);e.preventDefault();});
 		$('#line').bind(touch_click,function(e){show_book_options(true);e.preventDefault();});
-		$('.menu_button').bind(touch_click,function(e){select_menu_item($(this).parent().parent(),$(this))});
+		$('.menu_button').bind(touch_click,function(e){select_menu_item($(this).parent().parent(),$(this));e.preventDefault();});
         
 	    $('#deck').bind('click',click).bind('touchstart',touchstart).bind('touchmove',touchmove).bind('touchend',touchend);
         
@@ -211,7 +211,7 @@
 	
 		}		
 		
-		menu.children('.menu_panels').children('.menu_panel').css('-webkit-transform','translateX('+(item_index)*page_width+'px)');
+		menu.children('.menu_panels').children('.menu_panel').css('-webkit-transform','translate3d('+(item_index)*page_width+'px,0px,0px)');
 
 
 	}	
@@ -649,15 +649,15 @@
 				{
 					current_page.style['-webkit-transition-duration']=time;
 					next_page.style['-webkit-transition-duration']=time;
-					current_page.style.webkitTransform='translate(-'+page_width+'px,0px)';
-					next_page.style.webkitTransform='translate(0px,0px)';										
+					current_page.style.webkitTransform='translate3d(-'+page_width+'px,0px,0px)';
+					next_page.style.webkitTransform='translate3d(0px,0px,0px)';										
 				}
 				if(current_book.current_page!=0 && page<current_book.current_page)
 				{
 					current_page.style['-webkit-transition-duration']=time;
 					previous_page.style['-webkit-transition-duration']=time;
-					current_page.style.webkitTransform='translate('+page_width+'px,0px)';
-					previous_page.style.webkitTransform='translate(0px,0px)';
+					current_page.style.webkitTransform='translate3d('+page_width+'px,0px,0px)';
+					previous_page.style.webkitTransform='translate3d(0px,0px,0px)';
 				}					
 			}	
 			current_book.current_page=page;			
@@ -671,9 +671,9 @@
 		previous_page.style['-webkit-transition-duration']='0s';
 		next_page.style['-webkit-transition-duration']='0s';				
 
-		current_page.style.webkitTransform='translate(0px,0px)';
-		next_page.style.webkitTransform='translate('+page_width+'px,0px)';		
-		previous_page.style.webkitTransform='translate(-'+page_width+'px,0px)';		
+		current_page.style.webkitTransform='translate3d(0px,0px,0px)';
+		next_page.style.webkitTransform='translate3d('+page_width+'px,0px,0px)';		
+		previous_page.style.webkitTransform='translate3d(-'+page_width+'px,0px,0px)';		
 		
 
 				
@@ -705,19 +705,21 @@
 		duration=new Date().getTime();
 		$('#status').remove();
 		touch_time=new Date().getUTCMilliseconds();
-		if(e.clientY<20)
+		if(e.clientY<60)
 		{
 				show_book_options(true);
 		}
 		else if($('#bar').css('display')=='block')
 		{
 			show_book_options(false);
-		}		
-		else if(e.clientX>page_width/2)
+		}	
+		//right side click	
+		else if(e.clientX-50>page_width/2)
 		{	
 			goto_page(current_book.current_page+1);
 		}
-		else
+		//left side click
+		else if(e.clientX+50<page_width/2)
 		{	
 			goto_page(current_book.current_page-1);	
 		}
@@ -766,14 +768,14 @@
 		delta_x=event.touches[0].pageX-first_x;
 		if( ((delta_x <0 && current_book.current_page != (current_book.pages_length-1))) || (delta_x >0 && current_book.current_page!=0) && fingers==1)
 		{			
-			current_page.style.webkitTransform='translate('+delta_x+'px,0px)';			
+			current_page.style.webkitTransform='translate3d('+delta_x+'px,0px,0px)';			
 			if(delta_x < 0)
 			{
-				next_page.style.webkitTransform='translate('+(page_width+delta_x)+'px,0px)';
+				next_page.style.webkitTransform='translate3d('+(page_width+delta_x)+'px,0px,0px)';
 			}
 			else
 			{
-				previous_page.style.webkitTransform='translate('+(-page_width+delta_x)+'px,0px)';
+				previous_page.style.webkitTransform='translate3d('+(-page_width+delta_x)+'px,0px,0px)';
 			}					
 		}
 		
@@ -793,7 +795,7 @@
 			}
 			else if(delta_x==0 && fingers == 1)
 			{
-				if(first_y<20)
+				if(first_y<60)
 				{
 						show_book_options(true);
 				}
@@ -801,11 +803,11 @@
 				{
 						show_book_options(false);
 				}
-				else if(first_x>page_width/2)
+				else if(first_x-50>page_width/2)
 				{
 					goto_page(current_book.current_page+1,false,'0.1s');
 				}
-				else
+				else if(first_x+50<page_width/2)
 				{
 					goto_page(current_book.current_page-1,false,'0.1s');
 				}
