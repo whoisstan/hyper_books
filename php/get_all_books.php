@@ -30,6 +30,21 @@
 		"language":"en",
 		"purchase_links":{"amazon":"http://amzn.to/hjRoU3"}
 	},
+	"gutenberg_974":{
+		"authors":["Joseph Conrad"],
+		"title":"The Secret Agent",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/ydnSh2"}
+	},
+	
+	"gutenberg_5200":{
+		"authors":["Franz Kafka"],
+		"title":"Metamorphosis",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/yvUS6J"}
+	},
+	
+	
 	"gutenberg_35":{
 		"authors":["H.G. Wells"],
 		"title":"The Time Machine",
