@@ -1,4 +1,4 @@
-body{padding:0;margin:0;font-family:Helvetica;font-size:1.0em;color:#333;-webkit-user-select:none;-webkit-text-size-adjust:none;background:white; }
+body{padding:0;margin:0;font-family:Helvetica;font-size:1.0em;color:#333;-webkit-user-select:none;-webkit-text-size-adjust:none;background:white; overflow-x:hidden;}
 
 a {text-decoration:none;}
 li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-padding-start: 0px;}
@@ -19,16 +19,18 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 
 .button {float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#333;}
 
-.menu {clear:both; background:#aaa;overflow:hidden;}
-.menu .menu	{clear:both; background:#bbb;}
+.menu {clear:both; background:#aaa;overflow-x:hidden;}
+.menu .menu	{clear:both; background:#bbb;overflow:hidden;}
 .menu .menu_buttons { clear:both; font-size:0.9em; color:#444; 	}
 .menu .menu .menu_buttons{ background:#eee; font-size:0.8em; }
 .menu .menu_button{	float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#989793;-webkit-box-shadow:2px 2px 2px #333;}
 
 .menu .menu .menu_button{ }
 .menu .menu_panels {clear:both;	width: 100%; overflow-x:hidden;}
-.menu .menu_panel{ position: absolute;	 -webkit-transition: all 0.2s ease;   z-index:20;background:white; -webkit-transform-style: preserve-3d; }
-.menu .menu_panel:nth-child(2){left:-100%;}
+.menu .menu_panel{ position: absolute;	left:0; -webkit-transition: all 0.2s ease;   z-index:20;background:white; -webkit-transform-style: preserve-3d;	-webkit-backface-visibility: hidden;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	display:none }
+
 .menu .selected  {color:#ddd;-webkit-box-shadow:2px 2px 1px #333;}
 
 #line {border:1px solid #bbb;display:none;opacity:0.8;position:absolute;left:110px;top:8px;width:100px;z-index:1000;height:5px;-webkit-border-radius:3px;}
@@ -115,7 +117,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 	.menu .menu .menu_buttons { font-size:1.4em }	
 	.menu .menu_button{  margin:12px 12px 18px 12px;}	
 	.menu .menu_panels {width: 768px; height:700px;}	
-	.menu .menu_panel:nth-child(2){left:-768px;}	
+
 	
 	
 	.detail_panel .button {font-size:1.4em;padding:6px;}

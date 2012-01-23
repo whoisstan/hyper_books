@@ -138,7 +138,6 @@
 			{
 				$('#locations').append("<li page='"+current_book.chapters[chapter][0]+"'>"+current_book.chapters[chapter][1]+"</li>");
 			}
-			$('#locations').append("<li page='"+(current_book.pages_length-1)+"'>Last Page</li>");
 			
 			$('#locations li').click(function(){goto_page(parseInt($(this).attr('page')),true);$('#locations').html('');});
 
@@ -199,20 +198,17 @@
 	
 	function select_menu_item(menu,item)
 	{		
-		setTimeout(function(){window.scrollTo(0,0);	},10);
-		var previous=menu.children('.menu_buttons').children('.selected').removeClass('selected');		
-		$(item[0]).addClass('selected');
-		var item_index=menu.children('.menu_buttons').children('.menu_button').index(item);
-		
-		$('#'+item.attr('target')).show();	
-		if(item.attr('target')!=previous.attr('target'))
-		{
-			setTimeout(function(){$('#'+previous.attr('target')).hide();},200);
-	
-		}		
-		
-		menu.children('.menu_panels').children('.menu_panel').css('-webkit-transform','translate3d('+(item_index)*page_width+'px,0px,0px)');
 
+		setTimeout(function(){window.scrollTo(0,0);	},10);
+		//turn off button
+		var previous=menu.children('.menu_buttons').children('.selected').removeClass('selected');		
+		//turn on button
+		$(item[0]).addClass('selected');
+		//hide last panel
+		$('#'+previous.attr('target')).hide();				
+		//show panel
+		$('#'+item.attr('target')).show();	
+		
 
 	}	
 
