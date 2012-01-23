@@ -363,7 +363,7 @@
 		storage.get_all_books(1,'',
 			function(list)
 			{				
-				$('#my_books').html(render_list(list,"<div class='intro'><p><b>Hyper Books</b> is a mobile browser based e-book reader. The featured books are copyright free classics from digital libraries such as Project Gutenberg in Australia, Germany and the United States.</p><p>All downloaded books are stored on your phone and available offline. Please bookmark this site so you can enjoy your books when you are off the grid. </p></div>"));
+				$('#my_books').html(render_list(list,"<div class='intro'><p><b>Hyper- Books</b> is a mobile browser based e-book reader. The featured books are copyright free classics from digital libraries such as Project Gutenberg in Australia, Germany and the United States.</p><p>All downloaded books are stored on your phone and available offline.</p> <b><b>Please bookmark this site for easy access.</b></p></div>"));
 						
 				create_interface();
 			});
@@ -737,11 +737,7 @@
 		fingers=event.touches.length;
 		event.preventDefault();
 
-		if(fingers == 2)
-		{
-				goto_page(0,true);
-		}
-		else if(fingers == 3)
+		if(fingers == 3)
 		{
 				show_library();
 		}	
