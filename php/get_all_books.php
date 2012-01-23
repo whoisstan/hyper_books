@@ -225,7 +225,40 @@
 		"title":"Anthem",
 		"language":"en",
 		"purchase_links":{"amazon":"http://amzn.to/pJepEF"}																																					
-	}	
+	},
+	"gutenberg_en_1720":{
+		"authors":["G.K. Chesterton"],
+		"title":"The Man Who Knew Too Much",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/xyFTfU"}																																					
+	},
+	
+	
+	"archive_org_tokillamockingbird":{
+		"authors":["Harper Lee"],
+		"title":"To Kill a Mockingbird",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/wYy5Sl"}																																					
+	},
+
+	"gutenberg_en_5287":{
+		"authors":["Bertrand Russel"],
+		"title":"The Problems of Philosophy",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/zMnrGC"}																																					
+	}
+,
+
+	"gutenberg_en_2197":{
+		"authors":["Fyodor Dostoyevsky"],
+		"title":"The Gambler",
+		"language":"en",
+		"purchase_links":{"amazon":"http://amzn.to/y7pYa7"}																																					
+	}
+	
+	
+	
+	
 	
 																															
 										
