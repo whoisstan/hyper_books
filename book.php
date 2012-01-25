@@ -5,11 +5,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="viewport" content="initial-scale=1.0;maximum-scale=1.0;user-scalable=no;width=device-width">
+
 		<link rel="apple-touch-icon-precomposed" href="images/touch-icon-precomposed.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch-icon-72-precomposed.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch-icon-114-precomposed.png" />
 		<link rel="apple-touch-icon" href="images/touch-icon-precomposed.png">
-		<link rel="apple-touch-startup-image" href="images/startup.png">
+
+		<link rel="apple-touch-startup-image" href="images/startup.png">	
+		<link rel="apple-touch-startup-image" sizes="640x960" href="img/startup-640x960.png" />	
+
         <link rel="stylesheet" href="dist/style/all.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<script type="text/javascript" src="dist/js/jquery.js"></script>
 
