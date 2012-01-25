@@ -10,7 +10,7 @@ include_once 'php/detect.php';
 <div class='box'>
 <div class='left'>
 <h1>Hyper Books(&beta;)</h1>
-<p>Hyper Books is a free mobile web based e&#8209;book reader. The currently available books are a selection of copyright free classics from digital libraries such as Project Gutenberg in <a href='http://gutenberg.net.au/'>Australia</a>, <a href="http://gutenberg.spiegel.de/">Germany</a>, <a href="http://www.gutenberg.org/">USA</a> and the <a href="http://www.archive.org/">Internet Archive</a>.</p>
+<p>Hyper Books is a free mobile HTML5 based e&#8209;book reader. The currently available books are a selection of copyright free classics from digital libraries such as Project Gutenberg in <a href='http://gutenberg.net.au/'>Australia</a>, <a href="http://gutenberg.spiegel.de/">Germany</a>, <a href="http://www.gutenberg.org/">USA</a> and the <a href="http://www.archive.org/">Internet Archive</a>.</p>
 
 <p >Please visit <span class='main'>&nbsp;hyper-books.com&nbsp;</span> on your Android, iPhone, iPad or iPod browser or scan the QR code below. </p>
 
