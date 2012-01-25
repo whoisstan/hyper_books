@@ -247,15 +247,6 @@
 		"language":"en",
 		"purchase_links":{"amazon":"http://amzn.to/zMnrGC"}																																					
 	}
-,
-
-	"gutenberg_en_2197":{
-		"authors":["Fyodor Dostoyevsky"],
-		"title":"The Gambler",
-		"language":"en",
-		"purchase_links":{"amazon":"http://amzn.to/y7pYa7"}																																					
-	}
-	
 	
 	
 	
