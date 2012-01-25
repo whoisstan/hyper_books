@@ -39,7 +39,7 @@ var txt_processor=function(){
 			for(var i=0; i<_amount_of_words_per_load;i++)
 			{
 			
-				if(_content.length<300 && _next!="")
+				if(_content.length<420 && _next!="")
 				{
 						_content+=_next.substring(0,processing_chunk_size);
 						_next=_next.substring(processing_chunk_size);

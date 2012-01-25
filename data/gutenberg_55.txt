@@ -1,4 +1,4 @@
-INTRODUCTION
+0. Introduction
 
 
 Folklore, legends, myths and fairy tales have followed childhood
@@ -24,6 +24,7 @@ the heartaches and nightmares are left out.
 
 L. Frank Baum
 Chicago, April, 1900.
+
 
 
 1.  The Cyclone

@@ -32,11 +32,12 @@ var sqlite_storage=function(settings) {
 			db.transaction(
 			    function(transaction){			
 					transaction.executeSql("update books set is_current_book = 0;",[],function(){},function(transaction, error){ errorCallback('book_update_content1',error)});
-					transaction.executeSql("update books set content = ?,chapters=?,is_ready=?,is_current_book=1 where id = ?;", [compress(pub.content_array_to_string(book.content)),JSON.stringify(book.chapters),book.is_ready,book.id],successCallback,function(transaction, error){ errorCallback('book_update_content2',error)} );
+					transaction.executeSql("update books set content = ?,chapters=?,is_ready=?,is_current_book=1 where id = ?;", [pub.compress(pub.content_array_to_string(book.content)),JSON.stringify(book.chapters),book.is_ready,book.id],successCallback,function(transaction, error){ errorCallback('book_update_content2',error)} );
 				});
 		};
 		pub.add_book=function(id,book,successCallback,errorCallback)
 		{
+			book.id=id;
 			try{
 			function nullDataHandler(transaction, results) { }
 			
@@ -49,12 +50,12 @@ var sqlite_storage=function(settings) {
 					if(results.rows.length==0)
 					{
 						transaction.executeSql('insert into books (id, title, authors,authors_sort_key, language, cover_markup, cover_css, page_css, purchase_links, is_ready) VALUES (?,?,?,?,?,?,?,?,?,?);', 
-							[id, book.title, book.authors.join(','),book.authors[0].split(' ').pop(), book.language, book.cover_markup!=null?book.cover_markup:"", book.cover_css!=null?book.cover_css:"", book.page_css!=null?book.page_css:"", JSON.stringify(book.purchase_links!=null?book.purchase_links:{}), 0 ], successCallback,function(transaction, error){ console.log(error); errorCallback('add_book_inner',error)} );						
+							[id, book.title, book.authors.join(','),book.authors[0].split(' ').pop(), book.language, book.cover_markup!=null?book.cover_markup:"", book.cover_css!=null?book.cover_css:"", book.page_css!=null?book.page_css:"", JSON.stringify(book.purchase_links!=null?book.purchase_links:{}), 0 ], successCallback(book),function(transaction, error){ console.log(error); errorCallback('add_book_inner',error)} );						
 											
 					}
 					else
 					{
-						successCallback();
+						successCallback(book);
 					}
 					
 				},
@@ -88,8 +89,13 @@ var sqlite_storage=function(settings) {
 			var conditions="";
 			if(is_ready==1)
 			{
-				conditions=" where is_ready=1 "
+				conditions=" where is_ready=1 ";
 			}
+			else if(is_ready==2)
+			{
+				conditions=" ";
+			}
+			
 			else
 			{
 				conditions=" where is_ready=0 and language='"+language+"'";
@@ -113,7 +119,7 @@ var sqlite_storage=function(settings) {
 					book.authors=book.authors.split(',');
 					if(book.content!=null && book.content!="")
 					{
-						book.content=pub.content_string_to_array(decompress(book.content));
+						book.content=pub.content_string_to_array(pub.decompress(book.content));
 						book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];		
 						book.purchase_links=JSON.parse(book.purchase_links);			
 						book.is_ready=true;						
@@ -156,7 +162,7 @@ var sqlite_storage=function(settings) {
 				{
 					book=convert_to_mutable(results.rows.item(0));
 					book.authors=book.authors.split(',');
-					book.content=pub.content_string_to_array(decompress(book.content));
+					book.content=pub.content_string_to_array(pub.decompress(book.content));
 					book.chapters=book.chapters!=''?JSON.parse(book.chapters):[];
 					book.purchase_links=JSON.parse(book.purchase_links);
 					successCallback(book);
@@ -178,7 +184,7 @@ var sqlite_storage=function(settings) {
 			)	
 		};
 		//helper methods
-		function compress(to_compress)
+		pub.compress=function(to_compress)
 		{
 			var output = new OutStream();
 			var compressor = new LZWCompressor(output);
@@ -192,7 +198,7 @@ var sqlite_storage=function(settings) {
 			return output.offset+","+s;
 		};
 
-		function decompress(s){
+		pub.decompress=function(s){
 
 			var offset=parseInt(s.substring(0,s.indexOf(',')));
 			s=s.substring(s.indexOf(',')+1);

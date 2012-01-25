@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+<head>
+	<title>Hyper Books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<meta name="viewport" content="initial-scale=1.0">
+	<meta name="viewport" content="maximum-scale=1.0">
+	<meta name="viewport" content="user-scalable=no">
+	<meta name="viewport" content="width=device-width">
+
+
+	<link rel="apple-touch-icon-precomposed" href="images/touch-icon-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon" href="images/touch-icon-precomposed.png">
+
+
+	<link rel="apple-touch-startup-image" href="images/startup.png">	
+	<link rel="apple-touch-startup-image" sizes="640x960" href="img/startup-640x960.png" />	
+	
+	<link rel="stylesheet" href="style/book.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+	<!-- Hardcoded with for development -->
+
+	
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/book_storage.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/book_processing.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+<body class="width">
+	<div id='bar' class="width">
+		<div class='top'>
+		<div id='home' class='button'>My &nbsp;Books </div>
+		<div id='hide_bar' class='button'>Hide Menu</div>		
+		<div style='clear:both'></div>
+	
+		<div  class='title'>Book Title</div>		
+		<div  class='authors'>Book Title</div>				
+	</div>		
+		<div class="menu"><div class="menu_buttons"><div class='menu_button selected' target='locations'>Chapters</div><div class='menu_button selected' target='more_options'>Options</div></div>
+			<div class="menu_panels width">
+				<ul id='locations' class='menu_panel width' ></ul>
+				<ul id='more_options' class='menu_panel width' ></ul>
+			</div>
+		</div>
+		<br/>
+	</div>
+	<div id='line' ></div>
+	<div id='splash' class="panel">
+		<img src="images/startup.png" >		
+	</div>	
+	<div id='rotate'  >
+		<canvas width="355" height="181"></canvas>
+	</div>
+	<div id='loading' class="panel">
+		<div style="padding-top:20px">
+		<div class='cover'>
+			<h1 class="title"></h1>
+			by
+			<h3 class="authors"></h3>
+			<br/>
+			
+		</div>
+</div>
+			<div id="cover_message" class="width"></div>		
+<div id="help" class="width">Touch to flip through the book. <br/>Touch + Hold for menu.</div>			
+	</div>	
+	
+	<div id='deck' class="panel"></div>		
+	
+	<div id='all_books' class="panel width">		
+		<div class="menu" >
+			<div class="menu_buttons" >
+				<canvas width="100" height="100" id='logo'></canvas><div class='menu_button selected' target='my_books'>My Books</div><div class='menu_button' target='available_for_download'>Download Books</div><div style="clear:both"></div>
+			</div>
+			<div class="menu_panels width">
+				<ul  id='my_books' class='menu_panel width' style='left:0px;z-index:100;'></ul>
+				<ul  id='available_for_download' class='menu_panel width' >
+					<div class="menu">
+						<div class="menu_buttons">
+							<div class='menu_button' target='available_for_download_en'>English</div><div class='menu_button' target='available_for_download_de'>Deutsch</div>
+						</div>
+						<div class="menu_panels width">
+							<ul  id='available_for_download_en' class='menu_panel width' ></ul>
+							<ul  id='available_for_download_de' class='menu_panel width' ></ul>		
+				</ul>		
+
+			</div>
+		</div>
+	</div>
+<script>
+var load_all=true;
+conf.storage.sqlite= sqlite_storage({
+					short_name:'_library_test' ,
+					display_name : 'books' ,
+					version : '1.0' ,					
+					max_size : 5*1024*1024
+		});
+</script>
+
+	<script src="js/book.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script>
+		setTimeout(function(){window.scroll(0,1)},10);
+	</script>	
+</body>
+</html>

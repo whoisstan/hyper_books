@@ -42,7 +42,7 @@
 		} else {
 			next_panel_delay=500;
 		}
-        show_panel('#splash');
+        //show_panel('#splash');
 
         var touch_click='touchstart click';
 		$('#loading').bind(touch_click,function(e){e.preventDefault();});
@@ -56,7 +56,46 @@
 	    draw_logo($('#logo')[0].getContext("2d"));
 	    draw_rotate($('#rotate canvas')[0].getContext("2d"));	
 
-		storage.init(function() {				
+		storage.init(function() {		
+			    
+			if(typeof(load_all)!='undefined' && load_all)
+			{
+				Object.size = function(obj) {
+				    var size = 0, key;
+				    for (key in obj) {
+				        if (obj.hasOwnProperty(key)) size++;
+				    }
+				    return size;
+				};
+				//load all books into the server
+				var books=[];
+				$.get("php/get_all_books.php", {}, function(book_data) {
+					var book_list=jQuery.parseJSON(book_data);
+					for (var id in book_list) { var _id=id;storage.add_book(_id,book_list[_id],
+						function(book){
+							storage.get_book(book.id,
+								function(_book){books.push(_book);
+									if(Object.size(book_list)==books.length)
+									{
+										var callback=function(book,status){console.log(book.id+"="+status);if(books.length>0){load_book(books.pop(),callback);}else{alert('all books loaded')}}
+												
+												load_book(books.pop(),callback);
+										
+										
+									}
+								
+								}
+							);
+							
+					},handle_fatal_error); }			
+				});					
+
+
+				
+			}
+			else
+			{
+						
 				storage.get_current_book(function(book){
 						if(book!=null)
 						{		
@@ -70,7 +109,8 @@
 						
 					},
 				handle_fatal_error
-				);										
+				);			
+			}							
 			},
 		handle_fatal_error);
 	}
@@ -128,6 +168,7 @@
 	{
 		if(show)
 		{
+			var book=current_book;
 			$('#line').addClass('in_bar');
 			
 			$('#locations').html('');
@@ -145,16 +186,15 @@
 			
 			$('#more_options').html("");
 			$('#more_options').attr('book_id',current_book.id);
-			$('#more_options').append("<li><div class='button remove' style='margin-right:5px;'>Remove Book</div></li>");
+			$('#more_options').append("<li><div class=' remove' style='margin-right:5px;'>Remove Book</div></li>");
 			
 			if(book.purchase_links && book.purchase_links.amazon)
 			{
-				console.log(book);
-			 	$('#more_options').append("<li ><div class='button amazon' url='"+book.purchase_links.amazon+"' style='margin-right:5px;'>Buy on Amazon</div></li>");
+			 	$('#more_options').append("<li ><div class=' amazon' url='"+book.purchase_links.amazon+"' style='margin-right:5px;'>Buy on Amazon</div></li>");
 			}
 			
-			$('#more_options').append("<li ><div class='button tweet' style='margin-right:5px;'>Tweet Book</div></li>");
-			$('#more_options').append("<li ><div class='button email' style='margin-right:5px;'>Email Book</div></li>");
+			$('#more_options').append("<li ><div class=' tweet' style='margin-right:5px;'>Tweet Book</div></li>");
+
 			
 			
 			
@@ -254,9 +294,14 @@
 		storage.get_book(id,function(book){		
 			if(confirm("Tweet your followers that you read "+book.title+"?"))
 			{		
-				var _message="I am reading '"+book.title+"' on http://hyper-books.com";
+				var _message="Reading \""+current_book.title+"\" by "+current_book.authors+". http://hyper-books.com #ebook";
+				if(_message.length>115)
+				{
+					_message="Reading \""+current_book.title+"\". http://hyper-books.com #ebook";
+				}
+				
 				$.getJSON('php/post.php', {message:_message}, function(data) {
-
+				
 					if(data.status=='success')
 					{
 						alert("Twweet sent!");
@@ -337,21 +382,7 @@
 			{
 				var book=list[i];
 				var li='<li book_id="'+book.id+'">';
-				if(book.is_ready==1)
-				{
-					li+="<div class='state details' style='opacity:0.1'>&gt;</div><div class='title' >"+book.title+"</div><div class='authors'>"+book.authors+"</div>";
-					li+="<div id='detail_panel_"+book.id+"' class='detail_panel'>";
-					li+="<div class='button remove' style='margin-right:12px;'>Remove</div>";
-					if(book.purchase_links && book.purchase_links.amazon)
-					{
-						li+="<div class='button amazon' url='"+book.purchase_links.amazon+"'>Buy on Amazon</div>";
-					}
-					li+="<div class='button tweet'>Tweet</div><div class='button email'>Email</div></div></li>";		
-				}
-				else
-				{
-					li+="<div class='title' >"+book.title+"</div><div class='authors'>"+book.authors+"</div>";			
-				}
+				li+="<div class='title' >"+book.title+"</div><div class='authors'>"+book.authors+"</div>";	
 				
 				all+=li+"</li>";
 			}	
@@ -363,7 +394,7 @@
 		storage.get_all_books(1,'',
 			function(list)
 			{				
-				$('#my_books').html(render_list(list,"<div class='intro'><p><b>Hyper- Books</b> is a mobile browser based e-book reader. The featured books are copyright free classics from digital libraries such as Project Gutenberg in Australia, Germany and the United States.</p><p>All downloaded books are stored on your phone and available offline.</p> <b><b>Please bookmark this site for easy access.</b></p></div>"));
+				$('#my_books').html(render_list(list,"<div class='intro'><p><b>Hyper Books</b> is a mobile browser based e-book reader. The featured books are copyright free classics from digital libraries such as Project Gutenberg in Australia, Germany and the United States.</p><p>All downloaded books are stored on your phone and available offline.</p> <b><b>Please bookmark this site for easy access.</b></p></div>"));
 						
 				create_interface();
 			});
@@ -396,7 +427,7 @@
 				}
 				else
 				{
-					load_book(book);
+					load_book(book,display_book);
 				}							
 			});
 	}
@@ -404,8 +435,9 @@
 	//*****************************************
 	//Load a book from the server
 	//*****************************************
-	function load_book(book)
+	function load_book(book,display_book_callback)
 	{
+
 		if(!navigator.onLine)
 		{
 			alert("You appear to be offline. You need to be online to load a new book from our server.");
@@ -487,6 +519,11 @@
 			{
 				data=data.replace(/(^|\n\n)(\d+\.?)(\n)/ig,substitute);
 			}
+			else if(data.match(/(^|\n\n)(\d+\.\s+.+)(\n)/ig))
+			{
+				data=data.replace(/(^|\n\n)(\d+\.\s+.+)(\n)/ig,substitute);
+			}
+			
 			else if(data.match(/(^|\n\n)([IVX]+\..+)(\n)/mg))
 			{
 				data=data.replace(/(^|\n\n)([IVX]+\..+)(\n)/mg,substitute);
@@ -526,12 +563,12 @@
 					book.content[book.content.length]=data.substring(0,pages_array[page]);
 					data=data.substring(pages_array[page]);
 				}
-				display_book(book);
+
 				ready_to_read=true;				
 				book.is_ready=1;			
 				current_book.current_page=0;				
 				storage.book_update_content(book,
-					function(){},
+					function(){display_book_callback(book,true)},
 					handle_fatal_error														
 					);
 			  }
@@ -545,12 +582,11 @@
 				{
 					console.log(new Date().getTime()-time_start);
 					$('#cover_message').html('Done, enjoy the book!');	
-					display_book(book);
 					ready_to_read=true;				
 					book.is_ready=1;			
 					current_book.current_page=0;				
 					storage.book_update_content(book,
-						function(){},
+						function(){				display_book_callback(book,false);},
 						handle_fatal_error														
 						);	
 					pages_array="";
@@ -830,7 +866,7 @@
 	  ctx.bezierCurveTo(38.8, 0.0, 32.4, 6.5, 32.4, 14.6);
 	  ctx.bezierCurveTo(32.4, 22.7, 38.8, 29.3, 46.8, 29.3);
 	  ctx.closePath();
-	  ctx.fillStyle = "#cdcdcd";
+	  ctx.fillStyle = "#efefef";
 	  ctx.fill();
 
 	  // layer1/Compound Path
