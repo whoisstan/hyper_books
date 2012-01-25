@@ -4,16 +4,16 @@ a {text-decoration:none;}
 li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-padding-start: 0px;}
 
 #deck {display:none; overflow:hidden;width: 320px; position: relative;height:150%; }
-.page {font-family:'Georgia';text-align:justify;background:#fdf1d9;color:#63553C; padding:20px 30px 30px 20px;line-height:26px;font-size:15pt;-webkit-transform-style: preserve-3d;}
+.page {font-family:'Georgia';text-align:justify;background:#fdf1d9;color:#554a36; padding:20px 30px 30px 20px;line-height:22px;font-size:13pt;-webkit-transform-style: preserve-3d;}
 .phantom {position:absolute;left:0px;top:0px;opacity:0;z-index:-5;width:320px;min-height:460px;}	
 .width{width:100% ;}
 #deck > *, .phantom > * {width:280px; height:410px;position:absolute;left:0px;top:0px;}
 
 .cover {text-align:center;}
-.cover .title{font-size:24pt;}
+.cover .title{font-size:24pt;line-height: 32px}
 .cover .author{font-size:18pt;}
 
-.page .chapter_title {font-weight:bold;text-align:center;padding-top:0px;margin-top:5px;margin-bottom:-1px;border-top:1px solid black;border-bottom:1px solid black;}
+.page .chapter_title {font-weight:bold;text-align:center;padding-top:0px;margin-top:2px;margin-bottom:-1px;border-top:1px solid black;border-bottom:1px solid black;}
 
 
 
@@ -23,7 +23,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 .menu .menu	{clear:both; background:#bbb;overflow:hidden;}
 .menu .menu_buttons { clear:both; font-size:0.9em; color:#444; 	}
 .menu .menu .menu_buttons{ background:#eee; font-size:0.8em; }
-.menu .menu_button{	float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#989793;-webkit-box-shadow:2px 2px 2px #333;}
+.menu .menu_button{	float:left; margin:5px; padding:4px;background:#555;-webkit-border-radius:5px;border-radius:5px;color:#ddd;-webkit-box-shadow:2px 2px 2px #333;}
 
 .menu .menu .menu_button{ }
 .menu .menu_panels {clear:both;	width: 100%; overflow-x:hidden;}
@@ -31,7 +31,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	display:none }
 
-.menu .selected  {color:#ddd;-webkit-box-shadow:2px 2px 1px #333;}
+.menu .selected  {;-webkit-box-shadow:2px 2px 1px #333;font-weight:bold;}
 
 #line {border:1px solid #bbb;display:none;opacity:0.8;position:absolute;left:110px;top:8px;width:100px;z-index:1000;height:5px;-webkit-border-radius:3px;}
 
@@ -39,7 +39,7 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 #line .left {background: #bbb;height:100%;}	
 #line.in_bar {border:1px solid #444;top:14px;}
 #line.in_bar .left {background: #444;}
-#bar .menu_button{ background:#656565; font-size:0.8em; }
+#bar .menu_button{ background:#656565; font-size:0.9em; }
 #bar {display:none;background:white;width:100%;z-index:5;color:#444;overflow:hidden;position:absolute;left:0px;top:0px;height:100%;}
 #bar .top{background:#aaa;}
 #bar .button { font-size:0.9em; opacity:0.8;-webkit-border-radius:6px; border-radius:6px;background:#333;color:ccc; }
@@ -80,13 +80,15 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 #all_books .detail_panel {display:none;clear:both;height:40px;}
 #all_books .detail_panel .button {background:#bbb;color:#666;border:1px solid #333;padding:3px;-webkit-border-radius:3px;border-radius:3px;margin-bottom:4px;border:none;font-size:0.8em;margin-left:0px;margin-right:4px;}
 
-#splash	{background:#5c5d61;color: #fdf1d9; height:100%; width:100%; display:block;}
+#splash	{background:#696a6e;color: #fdf1d9; height:100%; width:100%; display:block;}
 #splash img {width:100%;}
 
 #logo {float:right;height:38px;width:38px;padding-right:4px;padding-top:4px;}
 
-#more_options li {opacity:1.0;}
-#more_options .button { float:none; opacity:1.0; border:none; background:#bbb;color:#666; font-family:Arial;padding:6px;margin:10px; }
+
+#more_options {clear:both;padding-top:5px;background:white;min-height:100%;}
+#more_options li{list-style:none;padding-left:10px;padding-top:8px;padding-bottom:8px;border-bottom:1px dotted #aaa;clear:both;color:#333;font-size:0.9em;text-shadow: 0px 1px 1px #aaa;}
+
 
 .intro	{ padding:20px;text-align:justify;}
 
@@ -101,10 +103,10 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 /*  iPad Type */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px)
 {
-	#deck, body,.phantom {width:768px !important;height:1024px !important;;}
+	#deck, body,.phantom {width:768px !important;height:1024px !important;}
 	.width{width:768px !important;}	
 	#deck > *,.phantom > *  {float:left;width:608px; height:844px;}
-	.page{ 	padding:60px 80px 100px 80px;line-height:48px;font-size:24pt;}
+	.page{ 	padding:60px 80px 100px 80px;line-height:40px;font-size:24pt;}
 	#line {position:absolute;left:285px;top:20px;width:200px;height:16px;}
 	
 	#rotate {height:690px !important;width:1024px !important;padding-top:150px;}
@@ -114,20 +116,20 @@ li,ul{padding:0;margin:0;list-style:none;-webkit-margin-before: 0em; -webkit-pad
 	
 	.menu .menu_panel  {min-height:880px !important;}
 	.menu .menu_buttons { font-size:1.6em;margin-right:10px;}
-	.menu .menu .menu_buttons { font-size:1.4em }	
-	.menu .menu_button{  margin:12px 12px 18px 12px;}	
+	.menu .menu .menu_buttons { font-size:1.8em }	
+	.menu .menu_button{  margin:18px 12px 18px 12px !important;}	
 	.menu .menu_panels {width: 768px; height:700px;}	
 
 	
-	
+	li{padding-left:20px !important;}
 	.detail_panel .button {font-size:1.4em;padding:6px;}
 	
-	#all_books li .title{font-size:1.4em;}
-	#all_books li .authors{font-size:1.4em;}
+	#all_books li .title{font-size:1.6em;}
+	#all_books li .authors{font-size:1.6em;}
 #all_books .state {float:right;-webkit-border-radius:2px;padding:4px;border:1px solid black;font-size:1.2em;vertical-align:middle;margin-left:8px;margin-right:18px;margin-top:8px;}	
 	
-	#locations li {font-size:1.4em;}
-	
+	#locations li {font-size:1.6em;}
+	#more_options li {font-size:1.6em;}
 	#bar .button {font-size:1.4em;} 	
 	
 	#bar .title {font-size:1.4em;} 	
